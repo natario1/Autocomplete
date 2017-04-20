@@ -3,7 +3,7 @@ package com.otaliastudios.autocomplete;
 import android.text.Spannable;
 
 /**
- * This class controls when to show or hide the popup window, and, in the first case,
+ * This interface controls when to show or hide the popup window, and, in the first case,
  * what text should be passed to the popup {@link AutocompletePresenter}.
  *
  * @see Autocomplete.SimplePolicy for the simplest possible implementation
