@@ -26,9 +26,20 @@ public abstract class AutocompletePresenter<T> {
      *
      * @param provider a click provider for this presenter.
      */
-    protected void onStart(ClickProvider<T> provider) {
+    protected void registerClickProvider(ClickProvider<T> provider) {
 
     }
+
+    /**
+     * Useful if you wish to change width/height based on content height.
+     * The contract is to call {@link DataSetObserver#onChanged()} when your view has
+     * changes.
+     *
+     * This is called after {@link #getView()}.
+     *
+     * @param observer the observer.
+     */
+    protected void registerDataSetObserver(DataSetObserver observer) {}
 
     /**
      * Called each time the popup is shown. You are meant to inflate the view here.
@@ -93,20 +104,9 @@ public abstract class AutocompletePresenter<T> {
         onViewHidden();
     }
 
-    interface ClickProvider<T> {
+    public interface ClickProvider<T> {
         void click(T item);
     }
-
-    /**
-     * Useful if you wish to change width/height based on content height.
-     * The contract is to call {@link DataSetObserver#onChanged()} when your view has
-     * changes.
-     *
-     * This is called after {@link #getView()}.
-     *
-     * @param observer the observer.
-     */
-    protected void registerDataSetObserver(DataSetObserver observer) {}
 
     /**
      * Provides width, height, maxWidth and maxHeight for the popup.

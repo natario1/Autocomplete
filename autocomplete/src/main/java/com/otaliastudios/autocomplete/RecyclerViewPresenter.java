@@ -26,7 +26,7 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
     }
 
     @Override
-    protected final void onStart(ClickProvider<T> provider) {
+    protected final void registerClickProvider(ClickProvider<T> provider) {
         this.clicks = provider;
     }
 

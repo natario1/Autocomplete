@@ -195,7 +195,7 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
         source.addTextChangedListener(this);
 
         // Set up presenter
-        presenter.onStart(new AutocompletePresenter.ClickProvider<T>() {
+        presenter.registerClickProvider(new AutocompletePresenter.ClickProvider<T>() {
             @Override
             public void click(T item) {
                 AutocompleteCallback<T> c = Autocomplete.this.callback;
