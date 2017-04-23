@@ -1,3 +1,4 @@
+<!-- markdown-preview README.md -->
 # Autocomplete
 
 Simple yet powerful autocomplete behavior for `EditText`s, to avoid working with
@@ -22,6 +23,8 @@ compile 'com.otaliastudios:autocomplete:1.0.0'
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Usage
+
+<img src="art/auto1.gif" width="30%"><img src="art/auto2.gif" width="30%"><img src="art/auto3.gif" width="30%">
 
 `Autocomplete` let's you add autocomplete behavior to any `EditText` of your choice. The workflow is
 as follows:
