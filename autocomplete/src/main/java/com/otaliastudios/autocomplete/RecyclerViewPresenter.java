@@ -11,7 +11,11 @@ import android.view.ViewGroup;
 /**
  * Simple {@link AutocompletePresenter} implementation that hosts a {@link RecyclerView}.
  * Supports {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT} natively.
- * The only contract is to call {@link #dispatchClick(Object)} when an object is clicked.
+ * The only contract is to
+ *
+ * - provide a {@link RecyclerView.Adapter} in {@link #instantiateAdapter()}
+ * - call {@link #dispatchClick(Object)} when an object is clicked
+ * - update your data during {@link #onQuery(CharSequence)}
  *
  * @param <T> your model object (the object displayed by the list)
  */
@@ -75,6 +79,18 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
     }
 
     /**
+     * Request that the popup should recompute its dimensions based on a recent change in
+     * the view being displayed.
+     *
+     * This is already managed internally for {@link RecyclerView} events.
+     * Only use it for changes in other views that you have added to the popup,
+     * and only if one of the dimensions for the popup is WRAP_CONTENT .
+     */
+    protected final void dispatchLayoutChange() {
+        if (observer != null) observer.onChanged();
+    }
+
+    /**
      * Provide an adapter for the recycler.
      * This should be a fresh instance every time this is called.
      *
@@ -85,12 +101,13 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
     /**
      * Provides a layout manager for the recycler.
      * This should be a fresh instance every time this is called.
+     * Defaults to a vertical LinearLayoutManager, which is guaranteed to work well.
      *
      * @return a new layout manager.
      */
     protected RecyclerView.LayoutManager instantiateLayoutManager() {
         return new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-    };
+    }
 
     private final static class Observer extends RecyclerView.AdapterDataObserver {
 
