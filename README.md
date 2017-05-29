@@ -10,10 +10,11 @@ compile 'com.otaliastudios:autocomplete:1.0.1'
 
 To see it in action, take a look at the sample app in the `sample` module.
 
+<img src="art/auto1.gif" width="30%"><img src="art/auto2.gif" width="30%"><img src="art/auto3.gif" width="30%">
+
 <!-- doctoc README.md --github --notitle -->
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Usage](#usage)
   - [AutocompletePolicy](#autocompletepolicy)
@@ -25,8 +26,6 @@ To see it in action, take a look at the sample app in the `sample` module.
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Usage
-
-<img src="art/auto1.gif" width="30%"><img src="art/auto2.gif" width="30%"><img src="art/auto3.gif" width="30%">
 
 `Autocomplete` let's you add autocomplete behavior to any `EditText` of your choice. The workflow is
 as follows:
