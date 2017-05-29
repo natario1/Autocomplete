@@ -8,6 +8,8 @@ Simple yet powerful autocomplete behavior for `EditText`s, to avoid working with
 compile 'com.otaliastudios:autocomplete:1.0.1'
 ```
 
+To see it in action, take a look at the sample app in the `sample` module.
+
 <!-- doctoc README.md --github --notitle -->
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -50,8 +52,6 @@ Autocomplete.on(editText)
   .with(popupElevation)
   .build();
 ```
-
-To get started, take a look at the sample app in `/sample`.
 
 ### AutocompletePolicy
 
