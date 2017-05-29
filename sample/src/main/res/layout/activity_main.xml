@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context="com.otaliastudios.sample.MainActivity">
+
+    <EditText
+        android:id="@+id/single"
+        android:hint="Single: Look for a single user..."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/single_button"
+        android:text="Set/change user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/multi"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Multiple: Write a comment with multiple @mentions..."/>
+    <Button
+        android:id="@+id/multi_button"
+        android:text="Send comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

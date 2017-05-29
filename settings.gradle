@@ -1,1 +1,1 @@
-include ':autocomplete'
+include ':autocomplete', ':sample'
