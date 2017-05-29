@@ -51,6 +51,8 @@ Autocomplete.on(editText)
   .build();
 ```
 
+To get started, take a look at the sample app in `/sample`.
+
 ### AutocompletePolicy
 
 This is an interface that controls when to show/hide the popup. For simple cases (single autocompletion,
