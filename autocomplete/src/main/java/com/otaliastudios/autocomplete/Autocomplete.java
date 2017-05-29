@@ -226,8 +226,8 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
         log("showPopup: called with filter "+query);
         if (!isPopupShowing()) {
             log("showPopup: showing");
-            popup.setView(presenter.getView());
             presenter.registerDataSetObserver(new Observer()); // Calling new to avoid leaking... maybe...
+            popup.setView(presenter.getView());
             presenter.showView();
             popup.show();
             if (callback != null) callback.onPopupVisibilityChanged(true);
