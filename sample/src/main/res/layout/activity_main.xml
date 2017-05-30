@@ -33,5 +33,16 @@
         android:text="Send comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/topbar"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Popup with complex view. Choose a male or a female..."/>
+    <Button
+        android:id="@+id/topbar_button"
+        android:text="Set/change user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

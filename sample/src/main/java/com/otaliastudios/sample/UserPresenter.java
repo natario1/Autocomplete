@@ -21,7 +21,7 @@ import java.util.List;
 
 public class UserPresenter extends RecyclerViewPresenter<User> {
 
-    private Adapter adapter;
+    protected Adapter adapter;
 
     public UserPresenter(Context context) {
         super(context);
@@ -43,12 +43,12 @@ public class UserPresenter extends RecyclerViewPresenter<User> {
 
     @Override
     protected void onQuery(@Nullable CharSequence query) {
+        List<User> all = User.USERS;
         if (TextUtils.isEmpty(query)) {
-            adapter.setData(User.USERS);
+            adapter.setData(all);
         } else {
             query = query.toString().toLowerCase();
             List<User> list = new ArrayList<>();
-            List<User> all = User.USERS;
             for (User u : all) {
                 if (u.getFullname().toLowerCase().contains(query) ||
                         u.getUsername().toLowerCase().contains(query)) {
@@ -61,7 +61,7 @@ public class UserPresenter extends RecyclerViewPresenter<User> {
         adapter.notifyDataSetChanged();
     }
 
-    private class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
+    class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
 
         private List<User> data;
 

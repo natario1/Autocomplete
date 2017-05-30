@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        android:background="#e6e6e6"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    <FrameLayout
+        android:id="@+id/recycler_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

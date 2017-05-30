@@ -24,5 +24,6 @@ android {
 
 dependencies {
     compile "com.android.support:appcompat-v7:$supportLibVersion"
+    compile "com.android.support:design:$supportLibVersion"
     compile project(':autocomplete')
 }

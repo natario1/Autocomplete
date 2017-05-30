@@ -23,19 +23,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Autocomplete userAutocomplete;
     private Autocomplete mentionsAutocomplete;
+    private Autocomplete maleFemaleAutocomplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        findViewById(R.id.single_button).setOnClickListener(this);
+        findViewById(R.id.multi_button).setOnClickListener(this);
+        findViewById(R.id.topbar_button).setOnClickListener(this);
+
         setupUserAutocomplete();
         setupMentionsAutocomplete();
+        setupMaleFemaleAutocomplete();
     }
 
     private void setupUserAutocomplete() {
-        findViewById(R.id.single_button).setOnClickListener(this);
-        EditText e = (EditText) findViewById(R.id.single);
+        EditText edit = (EditText) findViewById(R.id.single);
         float elevation = 6f;
         Drawable backgroundDrawable = new ColorDrawable(Color.WHITE);
         AutocompletePresenter<User> presenter = new UserPresenter(this);
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onPopupVisibilityChanged(boolean shown) {}
         };
 
-        userAutocomplete = Autocomplete.<User>on(e)
+        userAutocomplete = Autocomplete.<User>on(edit)
                 .with(elevation)
                 .with(backgroundDrawable)
                 .with(presenter)
@@ -59,8 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupMentionsAutocomplete() {
-        findViewById(R.id.multi_button).setOnClickListener(this);
-        EditText e = (EditText) findViewById(R.id.multi);
+        EditText edit = (EditText) findViewById(R.id.multi);
         float elevation = 6f;
         Drawable backgroundDrawable = new ColorDrawable(Color.WHITE);
         AutocompletePolicy policy = new CharPolicy('@'); // Look for @mentions
@@ -84,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onPopupVisibilityChanged(boolean shown) {}
         };
 
-        mentionsAutocomplete = Autocomplete.<User>on(e)
+        mentionsAutocomplete = Autocomplete.<User>on(edit)
                 .with(elevation)
                 .with(backgroundDrawable)
                 .with(policy)
@@ -93,11 +97,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
     }
 
+    private void setupMaleFemaleAutocomplete() {
+        EditText edit = (EditText) findViewById(R.id.topbar);
+        float elevation = 6f;
+        Drawable backgroundDrawable = new ColorDrawable(Color.WHITE);
+        AutocompletePresenter<User> presenter = new MaleFemalePresenter(this);
+        AutocompleteCallback<User> callback = new AutocompleteCallback<User>() {
+            @Override
+            public boolean onPopupItemClicked(Editable editable, User item) {
+                editable.clear();
+                editable.append(item.getFullname())
+                        .append(" ")
+                        .append(item.isFemale() ? "(Female)" : "(Male)");
+                editable.setSpan(new StyleSpan(Typeface.BOLD), 0, item.getFullname().length(),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                return true;
+            }
+
+            public void onPopupVisibilityChanged(boolean shown) {}
+        };
+
+        maleFemaleAutocomplete = Autocomplete.<User>on(edit)
+                .with(elevation)
+                .with(backgroundDrawable)
+                .with(presenter)
+                .with(callback)
+                .build();
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.single_button:
                 userAutocomplete.showPopup(" ");
+                break;
+            case R.id.topbar_button:
+                maleFemaleAutocomplete.showPopup(" ");
                 break;
             case R.id.multi_button:
                 ((EditText) findViewById(R.id.multi)).setText("");
