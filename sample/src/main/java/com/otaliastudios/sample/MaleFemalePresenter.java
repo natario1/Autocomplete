@@ -33,7 +33,7 @@ public class MaleFemalePresenter extends UserPresenter implements TabLayout.OnTa
         ViewGroup container = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.male_female_popup, null);
         // Add RecyclerView to our container
         ViewGroup rvContainer = (ViewGroup) container.findViewById(R.id.recycler_view_container);
-        rvContainer.addView(rv);
+        rvContainer.addView(rv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         // Set up bar that reacts to clicks and syncs with 'females' boolean
         TabLayout tabLayout = (TabLayout) container.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Males"));
