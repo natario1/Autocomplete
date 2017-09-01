@@ -484,6 +484,7 @@ class AutocompletePopup {
             case ViewGroup.LayoutParams.MATCH_PARENT:
                 childWidthSpec = View.MeasureSpec.makeMeasureSpec(maxContentWidth, View.MeasureSpec.EXACTLY); break;
             default:
+                //noinspection Range
                 childWidthSpec = View.MeasureSpec.makeMeasureSpec(mWidth, View.MeasureSpec.EXACTLY); break;
         }
 
