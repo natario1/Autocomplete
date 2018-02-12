@@ -4,8 +4,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
@@ -18,12 +18,14 @@ import com.otaliastudios.autocomplete.AutocompleteCallback;
 import com.otaliastudios.autocomplete.AutocompletePolicy;
 import com.otaliastudios.autocomplete.AutocompletePresenter;
 import com.otaliastudios.autocomplete.CharPolicy;
+import com.otaliastudios.autocomplete.CharQuery;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Autocomplete userAutocomplete;
     private Autocomplete mentionsAutocomplete;
     private Autocomplete maleFemaleAutocomplete;
+    private CharQuery charQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupUserAutocomplete();
         setupMentionsAutocomplete();
         setupMaleFemaleAutocomplete();
+
+        charQuery = new CharQuery();
     }
 
     private void setupUserAutocomplete() {
@@ -130,10 +134,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.single_button:
-                userAutocomplete.showPopup(" ");
+                charQuery.setCharSequence(" ");
+                userAutocomplete.showPopup(charQuery);
                 break;
             case R.id.topbar_button:
-                maleFemaleAutocomplete.showPopup(" ");
+                charQuery.setCharSequence(" ");
+                maleFemaleAutocomplete.showPopup(charQuery);
                 break;
             case R.id.multi_button:
                 ((EditText) findViewById(R.id.multi)).setText("");

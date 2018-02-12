@@ -2,17 +2,15 @@ package com.otaliastudios.sample;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.otaliastudios.autocomplete.AutocompletePresenter;
+import com.otaliastudios.autocomplete.Query;
 import com.otaliastudios.autocomplete.RecyclerViewPresenter;
 
 import java.util.ArrayList;
@@ -42,21 +40,23 @@ public class UserPresenter extends RecyclerViewPresenter<User> {
     }
 
     @Override
-    protected void onQuery(@Nullable CharSequence query) {
+    protected void onQuery(@Nullable Query query) {
+        CharSequence queryCharSequence = query == null ? null : query.getCharSequence();
+
         List<User> all = User.USERS;
-        if (TextUtils.isEmpty(query)) {
+        if (TextUtils.isEmpty(queryCharSequence)) {
             adapter.setData(all);
         } else {
-            query = query.toString().toLowerCase();
+            queryCharSequence = queryCharSequence.toString().toLowerCase();
             List<User> list = new ArrayList<>();
             for (User u : all) {
-                if (u.getFullname().toLowerCase().contains(query) ||
-                        u.getUsername().toLowerCase().contains(query)) {
+                if (u.getFullname().toLowerCase().contains(queryCharSequence) ||
+                        u.getUsername().toLowerCase().contains(queryCharSequence)) {
                     list.add(u);
                 }
             }
             adapter.setData(list);
-            Log.e("UserPresenter", "found "+list.size()+" users for query "+query);
+            Log.e("UserPresenter", "found " + list.size() + " users for query " + queryCharSequence);
         }
         adapter.notifyDataSetChanged();
     }
