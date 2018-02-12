@@ -217,13 +217,14 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
      * There is rarely need to call this externally: it is already triggered by events on the anchor.
      * To control when this is called, provide a good implementation of {@link AutocompletePolicy}.
      *
-     * @param query query text.
+     * @param query query object.
      */
-    public void showPopup(CharSequence query) {
-        if (isPopupShowing() && lastQuery.equals(query.toString())) return;
-        lastQuery = query.toString();
+    public void showPopup(Query query) {
+        CharSequence queryCharSequence = query.getCharSequence();
+        if (isPopupShowing() && lastQuery.equals(queryCharSequence.toString())) return;
+        lastQuery = queryCharSequence.toString();
 
-        log("showPopup: called with filter "+query);
+        log("showPopup: called with filter " + queryCharSequence);
         if (!isPopupShowing()) {
             log("showPopup: showing");
             presenter.registerDataSetObserver(new Observer()); // Calling new to avoid leaking... maybe...
@@ -387,7 +388,13 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
      * Popup is shown when text length is bigger than 0, and hidden when text is empty.
      * The query string is the whole text.
      */
-    public static class SimplePolicy implements AutocompletePolicy {
+    public static class SimplePolicy implements AutocompletePolicy<CharQuery> {
+        private final CharQuery charQuery;
+
+        public SimplePolicy() {
+            this.charQuery = new CharQuery();
+        }
+
         @Override
         public boolean shouldShowPopup(Spannable text, int cursorPos) {
             return text.length() > 0;
@@ -399,8 +406,9 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
         }
 
         @Override
-        public CharSequence getQuery(Spannable text) {
-            return text;
+        public CharQuery getQuery(Spannable text) {
+            charQuery.setCharSequence(text);
+            return charQuery;
         }
 
         @Override

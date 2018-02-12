@@ -1,10 +1,8 @@
 package com.otaliastudios.autocomplete;
 
-import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -18,7 +16,7 @@ import android.util.Log;
  * - text "You should see this @j" : presenter will be passed the query "j"
  * - text "You should see this @john @m" : presenter will be passed the query "m"
  */
-public class CharPolicy implements AutocompletePolicy {
+public class CharPolicy implements AutocompletePolicy<CharQuery> {
 
     private final static String TAG = CharPolicy.class.getSimpleName();
     private final static boolean DEBUG = false;
@@ -29,7 +27,8 @@ public class CharPolicy implements AutocompletePolicy {
 
     private final char CH;
     private final int[] INT = new int[2];
-    private boolean needSpaceBefore = true;
+    private final CharQuery charQuery;
+    private boolean needSpaceBefore;
 
     /**
      * Constructs a char policy for the given character.
@@ -37,7 +36,7 @@ public class CharPolicy implements AutocompletePolicy {
      * @param trigger the triggering character.
      */
     public CharPolicy(char trigger) {
-        CH = trigger;
+        this(trigger, true);
     }
 
     /**
@@ -49,6 +48,7 @@ public class CharPolicy implements AutocompletePolicy {
      */
     public CharPolicy(char trigger, boolean needSpaceBefore) {
         CH = trigger;
+        charQuery = new CharQuery();
         this.needSpaceBefore = needSpaceBefore;
     }
 
@@ -133,12 +133,13 @@ public class CharPolicy implements AutocompletePolicy {
     }
 
     @Override
-    public CharSequence getQuery(Spannable text) {
+    public CharQuery getQuery(Spannable text) {
         QuerySpan[] span = text.getSpans(0, text.length(), QuerySpan.class);
         if (span == null || span.length == 0) {
             // Should never happen.
             log("getQuery: there's no span!");
-            return "";
+            charQuery.setCharSequence("");
+            return charQuery;
         }
         log("getQuery: found spans: "+span.length);
         QuerySpan sp = span[0];
@@ -146,7 +147,8 @@ public class CharPolicy implements AutocompletePolicy {
         log("getQuery: span end is "+text.getSpanEnd(sp));
         CharSequence seq =  text.subSequence(text.getSpanStart(sp), text.getSpanEnd(sp));
         log("getQuery: returning "+seq);
-        return seq;
+        charQuery.setCharSequence(seq);
+        return charQuery;
     }
 
 
