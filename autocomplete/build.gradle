@@ -3,7 +3,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 // Required by bintray
-version = '1.0.2'
+version = '1.0.3'
 group = 'com.otaliastudios'
 
 android {
@@ -28,11 +28,12 @@ android {
 }
 
 dependencies {
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    api "com.android.support:recyclerview-v7:$supportLibVersion"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:recyclerview-v7:$supportLibVersion"
-    testCompile 'junit:junit:4.12'
 }
 
 install {

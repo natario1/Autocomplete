@@ -342,7 +342,11 @@ class AutocompletePopup {
 
             // Update.
             mPopup.setOutsideTouchable(isOutsideTouchable());
-            mPopup.update(getAnchorView(), mHorizontalOffset, mVerticalOffset, widthSpec, heightSpec);
+            if (heightSpec == 0) {
+                dismiss();
+            } else {
+                mPopup.update(getAnchorView(), mHorizontalOffset, mVerticalOffset, widthSpec, heightSpec);
+            }
 
         } else {
             int widthSpec;
