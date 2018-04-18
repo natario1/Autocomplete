@@ -54,7 +54,7 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
         private AutocompletePresenter<T> presenter;
         private AutocompletePolicy policy;
         private AutocompleteCallback<T> callback;
-        private Drawable backgroundDrawable = null;
+        private Drawable backgroundDrawable;
         private float elevationDp = 6;
 
         private Builder(EditText source) {
