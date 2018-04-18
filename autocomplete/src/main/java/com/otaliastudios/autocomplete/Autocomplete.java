@@ -1,6 +1,8 @@
 package com.otaliastudios.autocomplete;
 
 import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,6 +15,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
@@ -50,7 +54,7 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
         private AutocompletePresenter<T> presenter;
         private AutocompletePolicy policy;
         private AutocompleteCallback<T> callback;
-        private Drawable backgroundDrawable;
+        private Drawable backgroundDrawable = null;
         private float elevationDp = 6;
 
         private Builder(EditText source) {
@@ -210,6 +214,27 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
         });
 
         builder.clear();
+    }
+
+    /**
+     * Controls how the popup operates with an input method.
+     *
+     * If the popup is showing, calling this method will take effect only
+     * the next time the popup is shown.
+     *
+     * @param mode a {@link PopupWindow} input method mode
+     */
+    public void setInputMethodMode(int mode) {
+        popup.setInputMethodMode(mode);
+    }
+
+    /**
+     * Sets the operating mode for the soft input area.
+     *
+     * @param mode The desired mode, see {@link WindowManager.LayoutParams#softInputMode}
+     */
+    public void setSoftInputMode(int mode) {
+        popup.setSoftInputMode(mode);
     }
 
     /**
