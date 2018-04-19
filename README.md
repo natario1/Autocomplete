@@ -5,7 +5,7 @@ Simple yet powerful autocomplete behavior for `EditText`s, to avoid working with
 `MultiAutoCompleteTextView` APIs.
 
 ```groovy
-implementation 'com.otaliastudios:autocomplete:1.0.3'
+implementation 'com.otaliastudios:autocomplete:1.1.0'
 ```
 
 To see it in action, take a look at the sample app in the `sample` module.
@@ -106,6 +106,13 @@ Autocomplete.on(editText)
 The presenter controls the display of items and their filtering when a query is selected.
 It is recommended to extend `RecyclerViewPresenter`, which shows a `RecyclerView` list.
 For more complex needs, look at the base `AutocompletePresenter` class and its comments.
+
+**Note**: starting from **1.1.0**, if the view returned by `AutocompletePresenter` has 0 height, this is read as a
+no-data signal and the popup will be dismissed. Not doing so would cause drawing artifacts, by
+leaving the popup in a weird state.
+
+If you are performing asynchronous loading, make sure to give some height to your view,
+for example by returning a 'loading' item from your adapter, or adding vertical padding.
 
 #### RecyclerViewPresenter
 
