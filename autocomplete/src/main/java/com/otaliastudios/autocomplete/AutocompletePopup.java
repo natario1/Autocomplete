@@ -174,7 +174,7 @@ class AutocompletePopup {
      * Returns the view that will be used to anchor this popup.
      * @return The popup's anchor view
      */
-    @Nullable View getAnchorView() {
+    View getAnchorView() {
         return mAnchorView;
     }
 
@@ -183,7 +183,7 @@ class AutocompletePopup {
      * the anchor view when shown.
      * @param anchor The view to use as an anchor.
      */
-    void setAnchorView(@Nullable View anchor) {
+    void setAnchorView(@NonNull View anchor) {
         mAnchorView = anchor;
     }
 
@@ -294,8 +294,9 @@ class AutocompletePopup {
      * will recalculate the popup's size and position.
      */
     void show() {
-        int height = buildDropDown();
+        if (!ViewCompat.isAttachedToWindow(getAnchorView())) return;
 
+        int height = buildDropDown();
         final boolean noInputMethod = isInputMethodNotNeeded();
         int mDropDownWindowLayoutType = WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL;
         PopupWindowCompat.setWindowLayoutType(mPopup, mDropDownWindowLayoutType);

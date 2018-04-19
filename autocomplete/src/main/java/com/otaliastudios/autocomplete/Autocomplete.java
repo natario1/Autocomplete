@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.SpanWatcher;
@@ -173,24 +174,31 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
 
         // Set up popup
         popup = new AutocompletePopup(source.getContext());
-        popup.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         popup.setAnchorView(source);
         popup.setGravity(Gravity.START);
         popup.setModal(false);
         popup.setBackgroundDrawable(builder.backgroundDrawable);
         popup.setElevation(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, builder.elevationDp,
                 source.getContext().getResources().getDisplayMetrics()));
+
         // popup dimensions
         AutocompletePresenter.PopupDimensions dim = this.presenter.getPopupDimensions();
         popup.setWidth(dim.width);
         popup.setHeight(dim.height);
         popup.setMaxWidth(dim.maxWidth);
         popup.setMaxHeight(dim.maxHeight);
+
         // Fire visibility events
         popup.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
+                lastQuery = "null";
                 if (callback != null) callback.onPopupVisibilityChanged(false);
+                boolean saved = block;
+                block = true;
+                policy.onDismiss(source.getText());
+                block = saved;
+                presenter.hideView();
             }
         });
 
@@ -202,14 +210,14 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
         presenter.registerClickProvider(new AutocompletePresenter.ClickProvider<T>() {
             @Override
             public void click(T item) {
-                AutocompleteCallback<T> c = Autocomplete.this.callback;
-                EditText e = Autocomplete.this.source;
-                if (c == null) return;
-                boolean b = block;
+                AutocompleteCallback<T> callback = Autocomplete.this.callback;
+                EditText edit = Autocomplete.this.source;
+                if (callback == null) return;
+                boolean saved = block;
                 block = true;
-                boolean dismiss = c.onPopupItemClicked(e.getText(), item);
+                boolean dismiss = callback.onPopupItemClicked(edit.getText(), item);
                 if (dismiss) dismissPopup();
-                block = b;
+                block = saved;
             }
         });
 
@@ -244,7 +252,7 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
      *
      * @param query query text.
      */
-    public void showPopup(CharSequence query) {
+    public void showPopup(@NonNull CharSequence query) {
         if (isPopupShowing() && lastQuery.equals(query.toString())) return;
         lastQuery = query.toString();
 
@@ -267,16 +275,8 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
      * To control when this is called, provide a good implementation of {@link AutocompletePolicy}.
      */
     public void dismissPopup() {
-        lastQuery = "null";
         if (isPopupShowing()) {
-            log("dismissPopup: called, and popup is showing");
             popup.dismiss();
-            boolean b = block;
-            block = true;
-            policy.onDismiss(source.getText());
-            block = b;
-            presenter.hideView();
-            // Not calling onPopupVisibilityChanged. That is done with a OnDismissListener.
         }
     }
 

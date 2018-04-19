@@ -5,7 +5,7 @@ Simple yet powerful autocomplete behavior for `EditText`s, to avoid working with
 `MultiAutoCompleteTextView` APIs.
 
 ```groovy
-implementation 'com.otaliastudios:autocomplete:1.0.3'
+implementation 'com.otaliastudios:autocomplete:1.1.0'
 ```
 
 To see it in action, take a look at the sample app in the `sample` module.
