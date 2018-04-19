@@ -107,6 +107,13 @@ The presenter controls the display of items and their filtering when a query is 
 It is recommended to extend `RecyclerViewPresenter`, which shows a `RecyclerView` list.
 For more complex needs, look at the base `AutocompletePresenter` class and its comments.
 
+**Note**: starting from **1.1.0**, if the view returned by `AutocompletePresenter` has 0 height, this is read as a
+no-data signal and the popup will be dismissed. Not doing so would cause drawing artifacts, by
+leaving the popup in a weird state.
+
+If you are performing asynchronous loading, make sure to give some height to your view,
+for example by returning a 'loading' item from your adapter, or adding vertical padding.
+
 #### RecyclerViewPresenter
 
 This automatically inflates a `RecyclerView` into the popup. Some relevant callbacks to be overriden:
