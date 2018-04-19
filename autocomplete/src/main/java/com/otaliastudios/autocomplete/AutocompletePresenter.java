@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 /**
  * Base class for presenting items inside a popup. This is abstract and must be implemented.
  *
- * Most important methods are {@link #getView()} and {@link #onQuery(CharSequence)}.
+ * Most important methods are {@link #getView()} and {@link #onQuery(Query)}.
  */
 public abstract class AutocompletePresenter<T> {
 
@@ -73,7 +73,7 @@ public abstract class AutocompletePresenter<T> {
      *
      * @param query query from the edit text, to filter our results
      */
-    protected abstract void onQuery(@Nullable CharSequence query);
+    protected abstract void onQuery(@Nullable Query query);
 
     /**
      * Called when the popup is hidden, to release resources.

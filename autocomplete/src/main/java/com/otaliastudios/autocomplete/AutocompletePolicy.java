@@ -8,7 +8,7 @@ import android.text.Spannable;
  *
  * @see Autocomplete.SimplePolicy for the simplest possible implementation
  */
-public interface AutocompletePolicy {
+public interface AutocompletePolicy<T extends Query> {
 
     /**
      * Called to understand whether the popup should be shown. Some naive examples:
@@ -49,7 +49,7 @@ public interface AutocompletePolicy {
      * @param text current text, along with its Spans
      * @return the query for presenter
      */
-    CharSequence getQuery(Spannable text);
+    T getQuery(Spannable text);
 
     /**
      * Called when popup is dismissed. This can be used, for instance, to clear custom Spans
