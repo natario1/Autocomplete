@@ -219,6 +219,14 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
                 if (dismiss) dismissPopup();
                 block = saved;
             }
+
+            @Override
+            public void removePopUp() {
+                boolean saved = block;
+                block = true;
+                dismissPopup();
+                block = saved;
+            }
         });
 
         builder.clear();

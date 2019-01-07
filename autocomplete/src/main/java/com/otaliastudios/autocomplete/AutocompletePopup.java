@@ -496,6 +496,7 @@ class AutocompletePopup {
         // Add padding only if the list has items in it, that way we don't show
         // the popup if it is not needed. For this reason, we measure as wrap_content.
         mView.measure(childWidthSpec, View.MeasureSpec.makeMeasureSpec(maxContentHeight, View.MeasureSpec.AT_MOST));
+        if(mView==null) return 0;
         final int viewHeight = mView.getMeasuredHeight();
         if (viewHeight > 0) {
             otherHeights += paddingVert + mView.getPaddingTop() + mView.getPaddingBottom();
