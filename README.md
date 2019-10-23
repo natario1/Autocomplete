@@ -1,4 +1,9 @@
 <!-- markdown-preview README.md -->
+
+*Need support, consulting, or have any other business-related question? Feel free to <a href="mailto:mat.iavarone@gmail.com">get in touch</a>.*
+
+*Like the project, make profit from it, or simply want to thank back? Please consider [sponsoring me](https://github.com/sponsors/natario1)!*
+
 # Autocomplete
 
 Simple yet powerful autocomplete behavior for `EditText`s, to avoid working with
