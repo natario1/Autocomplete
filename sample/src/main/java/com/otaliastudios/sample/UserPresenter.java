@@ -98,9 +98,10 @@ public class UserPresenter extends RecyclerViewPresenter<User> {
         @Override
         public void onBindViewHolder(Holder holder, int position) {
             if (isEmpty()) {
-                holder.fullname.setText("No user here!");
-                holder.username.setText("Sorry!");
-                holder.root.setOnClickListener(null);
+//                holder.fullname.setText("No user here!");
+//                holder.username.setText("Sorry!");
+//                holder.root.setOnClickListener(null);
+                dispatchRemovePopUp();
                 return;
             }
             final User user = data.get(position);

@@ -106,6 +106,7 @@ public abstract class AutocompletePresenter<T> {
 
     public interface ClickProvider<T> {
         void click(T item);
+        void removePopUp();
     }
 
     /**

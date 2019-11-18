@@ -78,6 +78,10 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
         if (clicks != null) clicks.click(item);
     }
 
+    protected final void dispatchRemovePopUp(){
+        if(clicks!=null) clicks.removePopUp();
+    }
+
     /**
      * Request that the popup should recompute its dimensions based on a recent change in
      * the view being displayed.
