@@ -4,16 +4,17 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.PopupWindowCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.PopupWindowCompat;
 
 /**
  * A simplified version of andriod.widget.ListPopupWindow, which is the class used by
@@ -25,8 +26,6 @@ import android.widget.PopupWindow;
  *
  */
 class AutocompletePopup {
-    private static final String TAG = AutocompletePopup.class.getSimpleName();
-
     private Context mContext;
     private ViewGroup mView;
     private int mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -69,6 +68,7 @@ class AutocompletePopup {
      * will be dismissed.
      * @param modal {@code true} if the popup window should be modal, {@code false} otherwise.
      */
+    @SuppressWarnings("SameParameterValue")
     void setModal(boolean modal) {
         mModal = modal;
         mPopup.setFocusable(modal);
@@ -78,10 +78,10 @@ class AutocompletePopup {
      * Returns whether the popup window will be modal when shown.
      * @return {@code true} if the popup window will be modal, {@code false} otherwise.
      */
+    @SuppressWarnings("unused")
     boolean isModal() {
         return mModal;
     }
-
 
     void setElevation(float elevationPx) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) mPopup.setElevation(elevationPx);
@@ -96,6 +96,7 @@ class AutocompletePopup {
      * @param dropDownAlwaysVisible Whether to keep the drop-down visible.
      *
      */
+    @SuppressWarnings("unused")
     void setDropDownAlwaysVisible(boolean dropDownAlwaysVisible) {
         mAlwaysVisible = dropDownAlwaysVisible;
     }
@@ -103,15 +104,16 @@ class AutocompletePopup {
     /**
      * @return Whether the drop-down is visible under special conditions.
      */
+    @SuppressWarnings("unused")
     boolean isDropDownAlwaysVisible() {
         return mAlwaysVisible;
     }
-
 
     void setOutsideTouchable(boolean outsideTouchable) {
         mOutsideTouchable = outsideTouchable;
     }
 
+    @SuppressWarnings("WeakerAccess")
     boolean isOutsideTouchable() {
         return mOutsideTouchable && !mAlwaysVisible;
     }
@@ -133,15 +135,17 @@ class AutocompletePopup {
      * @see #setSoftInputMode(int)
      * @see android.view.WindowManager.LayoutParams#softInputMode
      */
+    @SuppressWarnings({"WeakerAccess", "unused"})
     int getSoftInputMode() {
         return mPopup.getSoftInputMode();
     }
 
-
     /**
      * @return The background drawable for the popup window.
      */
-    @Nullable Drawable getBackground() {
+    @SuppressWarnings({"WeakerAccess", "unused"})
+    @Nullable
+    Drawable getBackground() {
         return mPopup.getBackground();
     }
 
@@ -157,6 +161,7 @@ class AutocompletePopup {
      * Set an animation style to use when the popup window is shown or dismissed.
      * @param animationStyle Animation style to use.
      */
+    @SuppressWarnings("unused")
     void setAnimationStyle(@StyleRes int animationStyle) {
         mPopup.setAnimationStyle(animationStyle);
     }
@@ -166,7 +171,9 @@ class AutocompletePopup {
      * shown or dismissed.
      * @return Animation style that will be used.
      */
-    @StyleRes int getAnimationStyle() {
+    @SuppressWarnings("unused")
+    @StyleRes
+    int getAnimationStyle() {
         return mPopup.getAnimationStyle();
     }
 
@@ -174,6 +181,7 @@ class AutocompletePopup {
      * Returns the view that will be used to anchor this popup.
      * @return The popup's anchor view
      */
+    @SuppressWarnings("WeakerAccess")
     View getAnchorView() {
         return mAnchorView;
     }
@@ -191,10 +199,10 @@ class AutocompletePopup {
      * Set the horizontal offset of this popup from its anchor view in pixels.
      * @param offset The horizontal offset of the popup from its anchor.
      */
+    @SuppressWarnings("unused")
     void setHorizontalOffset(int offset) {
         mHorizontalOffset = offset;
     }
-
 
     /**
      * Set the vertical offset of this popup from its anchor view in pixels.
@@ -217,6 +225,7 @@ class AutocompletePopup {
     /**
      * @return The width of the popup window in pixels.
      */
+    @SuppressWarnings("unused")
     int getWidth() {
         return mWidth;
     }
@@ -235,6 +244,7 @@ class AutocompletePopup {
      * larger to accommodate styled window dressing.
      * @param width Desired width of content in pixels.
      */
+    @SuppressWarnings("unused")
     void setContentWidth(int width) {
         Drawable popupBackground = mPopup.getBackground();
         if (popupBackground != null) {
@@ -253,6 +263,7 @@ class AutocompletePopup {
     /**
      * @return The height of the popup window in pixels.
      */
+    @SuppressWarnings("unused")
     int getHeight() {
         return mHeight;
     }
@@ -270,6 +281,7 @@ class AutocompletePopup {
      * larger to accommodate styled window dressing.
      * @param height Desired height of content in pixels.
      */
+    @SuppressWarnings("unused")
     void setContentHeight(int height) {
         Drawable popupBackground = mPopup.getBackground();
         if (popupBackground != null) {
@@ -418,6 +430,7 @@ class AutocompletePopup {
      * @return {@code true} if this popup is configured to assume the user does not need
      * to interact with the IME while it is showing, {@code false} otherwise.
      */
+    @SuppressWarnings("WeakerAccess")
     boolean isInputMethodNotNeeded() {
         return mPopup.getInputMethodMode() == PopupWindow.INPUT_METHOD_NOT_NEEDED;
     }

@@ -2,8 +2,10 @@ package com.otaliastudios.autocomplete;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.support.annotation.Nullable;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Base class for presenting items inside a popup. This is abstract and must be implemented.
@@ -15,7 +17,8 @@ public abstract class AutocompletePresenter<T> {
     private Context context;
     private boolean isShowing;
 
-    public AutocompletePresenter(Context context) {
+    @SuppressWarnings("WeakerAccess")
+    public AutocompletePresenter(@NonNull Context context) {
         this.context = context;
     }
 
@@ -39,7 +42,7 @@ public abstract class AutocompletePresenter<T> {
      *
      * @param observer the observer.
      */
-    protected void registerDataSetObserver(DataSetObserver observer) {}
+    protected void registerDataSetObserver(@NonNull DataSetObserver observer) {}
 
     /**
      * Called each time the popup is shown. You are meant to inflate the view here.
@@ -47,6 +50,7 @@ public abstract class AutocompletePresenter<T> {
      *
      * @return a ViewGroup for the popup
      */
+    @NonNull
     protected abstract ViewGroup getView();
 
     /**
@@ -57,6 +61,7 @@ public abstract class AutocompletePresenter<T> {
      * @return a PopupDimensions object
      */
     // Called at first to understand which dimensions to use for the popup.
+    @NonNull
     protected PopupDimensions getPopupDimensions() {
         return new PopupDimensions();
     }
@@ -83,6 +88,7 @@ public abstract class AutocompletePresenter<T> {
     /**
      * @return this presenter context
      */
+    @NonNull
     protected final Context getContext() {
         return context;
     }
@@ -90,6 +96,7 @@ public abstract class AutocompletePresenter<T> {
     /**
      * @return whether we are showing currently
      */
+    @SuppressWarnings("unused")
     protected final boolean isShowing() {
         return isShowing;
     }
@@ -105,13 +112,14 @@ public abstract class AutocompletePresenter<T> {
     }
 
     public interface ClickProvider<T> {
-        void click(T item);
+        void click(@NonNull T item);
     }
 
     /**
      * Provides width, height, maxWidth and maxHeight for the popup.
      * @see #getPopupDimensions()
      */
+    @SuppressWarnings("WeakerAccess")
     public static class PopupDimensions {
         public int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         public int height = ViewGroup.LayoutParams.WRAP_CONTENT;

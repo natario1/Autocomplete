@@ -2,11 +2,13 @@ package com.otaliastudios.autocomplete;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Simple {@link AutocompletePresenter} implementation that hosts a {@link RecyclerView}.
@@ -25,21 +27,21 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
     private ClickProvider<T> clicks;
     private Observer observer;
 
-    public RecyclerViewPresenter(Context context) {
+    public RecyclerViewPresenter(@NonNull Context context) {
         super(context);
     }
 
     @Override
-    protected final void registerClickProvider(ClickProvider<T> provider) {
+    protected final void registerClickProvider(@NonNull ClickProvider<T> provider) {
         this.clicks = provider;
     }
 
     @Override
-    protected final void registerDataSetObserver(DataSetObserver observer) {
+    protected final void registerDataSetObserver(@NonNull DataSetObserver observer) {
         this.observer = new Observer(observer);
     }
 
-    @CallSuper
+    @NonNull
     @Override
     protected ViewGroup getView() {
         recycler = new RecyclerView(getContext());
@@ -63,6 +65,7 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
         observer = null;
     }
 
+    @SuppressWarnings("unused")
     @Nullable
     protected final RecyclerView getRecyclerView() {
         return recycler;
@@ -74,7 +77,7 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
      *
      * @param item the clicked item.
      */
-    protected final void dispatchClick(T item) {
+    protected final void dispatchClick(@NonNull T item) {
         if (clicks != null) clicks.click(item);
     }
 
@@ -86,6 +89,7 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
      * Only use it for changes in other views that you have added to the popup,
      * and only if one of the dimensions for the popup is WRAP_CONTENT .
      */
+    @SuppressWarnings("unused")
     protected final void dispatchLayoutChange() {
         if (observer != null) observer.onChanged();
     }
@@ -96,6 +100,7 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
      *
      * @return a new adapter.
      */
+    @NonNull
     protected abstract RecyclerView.Adapter instantiateAdapter();
 
     /**
@@ -105,6 +110,8 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
      *
      * @return a new layout manager.
      */
+    @SuppressWarnings("WeakerAccess")
+    @NonNull
     protected RecyclerView.LayoutManager instantiateLayoutManager() {
         return new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
     }
@@ -113,7 +120,7 @@ public abstract class RecyclerViewPresenter<T> extends AutocompletePresenter<T> 
 
         private DataSetObserver root;
 
-        Observer(DataSetObserver root) {
+        Observer(@NonNull DataSetObserver root) {
             this.root = root;
         }
 

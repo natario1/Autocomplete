@@ -2,6 +2,8 @@ package com.otaliastudios.autocomplete;
 
 import android.text.Editable;
 
+import androidx.annotation.NonNull;
+
 /**
  * Optional callback to be passed to {@link Autocomplete.Builder}.
  */
@@ -16,7 +18,7 @@ public interface AutocompleteCallback<T> {
      * @param item item that was clicked
      * @return true if the action is valid and the popup can be dismissed
      */
-    boolean onPopupItemClicked(Editable editable, T item);
+    boolean onPopupItemClicked(@NonNull Editable editable, @NonNull T item);
 
     /**
      * Called when popup visibility state changes.

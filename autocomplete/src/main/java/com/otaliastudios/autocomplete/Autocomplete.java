@@ -1,12 +1,9 @@
 package com.otaliastudios.autocomplete;
 
 import android.database.DataSetObserver;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.SpanWatcher;
@@ -20,6 +17,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+
+import androidx.annotation.NonNull;
 
 
 /**
@@ -209,7 +208,7 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
         // Set up presenter
         presenter.registerClickProvider(new AutocompletePresenter.ClickProvider<T>() {
             @Override
-            public void click(T item) {
+            public void click(@NonNull T item) {
                 AutocompleteCallback<T> callback = Autocomplete.this.callback;
                 EditText edit = Autocomplete.this.source;
                 if (callback == null) return;
@@ -414,21 +413,22 @@ public final class Autocomplete<T> implements TextWatcher, SpanWatcher {
      */
     public static class SimplePolicy implements AutocompletePolicy {
         @Override
-        public boolean shouldShowPopup(Spannable text, int cursorPos) {
+        public boolean shouldShowPopup(@NonNull Spannable text, int cursorPos) {
             return text.length() > 0;
         }
 
         @Override
-        public boolean shouldDismissPopup(Spannable text, int cursorPos) {
+        public boolean shouldDismissPopup(@NonNull Spannable text, int cursorPos) {
             return text.length() == 0;
         }
 
+        @NonNull
         @Override
-        public CharSequence getQuery(Spannable text) {
+        public CharSequence getQuery(@NonNull Spannable text) {
             return text;
         }
 
         @Override
-        public void onDismiss(Spannable text) {}
+        public void onDismiss(@NonNull Spannable text) {}
     }
 }

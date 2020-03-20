@@ -1,30 +1,34 @@
 package com.otaliastudios.sample;
 
+import androidx.annotation.NonNull;
+
 import java.util.Arrays;
 import java.util.List;
 
-
+@SuppressWarnings("WeakerAccess")
 public class User {
 
     private String fullname;
     private String username;
     private boolean female;
 
-    public User(String fullname, String username) {
+    public User(@NonNull String fullname, @NonNull String username) {
         this.fullname = fullname;
         this.username = username;
     }
 
-    public User(String fullname, String username, boolean female) {
+    public User(@NonNull String fullname, @NonNull String username, boolean female) {
         this.fullname = fullname;
         this.username = username;
         this.female = female;
     }
 
+    @NonNull
     public String getFullname() {
         return fullname;
     }
 
+    @NonNull
     public String getUsername() {
         return username;
     }
