@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spanned;
@@ -12,6 +11,9 @@ import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.otaliastudios.autocomplete.Autocomplete;
 import com.otaliastudios.autocomplete.AutocompleteCallback;
@@ -21,9 +23,10 @@ import com.otaliastudios.autocomplete.CharPolicy;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Autocomplete userAutocomplete;
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private Autocomplete mentionsAutocomplete;
     private Autocomplete maleFemaleAutocomplete;
+    private Autocomplete userAutocomplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupUserAutocomplete() {
-        EditText edit = (EditText) findViewById(R.id.single);
+        EditText edit = findViewById(R.id.single);
         float elevation = 6f;
         Drawable backgroundDrawable = new ColorDrawable(Color.WHITE);
         AutocompletePresenter<User> presenter = new UserPresenter(this);
         AutocompleteCallback<User> callback = new AutocompleteCallback<User>() {
             @Override
-            public boolean onPopupItemClicked(Editable editable, User item) {
+            public boolean onPopupItemClicked(@NonNull Editable editable, @NonNull User item) {
                 editable.clear();
                 editable.append(item.getFullname());
                 return true;
@@ -64,14 +67,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupMentionsAutocomplete() {
-        EditText edit = (EditText) findViewById(R.id.multi);
+        EditText edit = findViewById(R.id.multi);
         float elevation = 6f;
         Drawable backgroundDrawable = new ColorDrawable(Color.WHITE);
         AutocompletePolicy policy = new CharPolicy('@'); // Look for @mentions
         AutocompletePresenter<User> presenter = new UserPresenter(this);
         AutocompleteCallback<User> callback = new AutocompleteCallback<User>() {
             @Override
-            public boolean onPopupItemClicked(Editable editable, User item) {
+            public boolean onPopupItemClicked(@NonNull Editable editable, @NonNull User item) {
                 // Replace query text with the full name.
                 int[] range = CharPolicy.getQueryRange(editable);
                 if (range == null) return false;
@@ -98,13 +101,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupMaleFemaleAutocomplete() {
-        EditText edit = (EditText) findViewById(R.id.topbar);
+        EditText edit = findViewById(R.id.topbar);
         float elevation = 6f;
         Drawable backgroundDrawable = new ColorDrawable(Color.WHITE);
         AutocompletePresenter<User> presenter = new MaleFemalePresenter(this);
         AutocompleteCallback<User> callback = new AutocompleteCallback<User>() {
             @Override
-            public boolean onPopupItemClicked(Editable editable, User item) {
+            public boolean onPopupItemClicked(@NonNull Editable editable, @NonNull User item) {
                 editable.clear();
                 editable.append(item.getFullname())
                         .append(" ")

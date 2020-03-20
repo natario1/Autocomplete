@@ -2,6 +2,8 @@ package com.otaliastudios.autocomplete;
 
 import android.text.Spannable;
 
+import androidx.annotation.NonNull;
+
 /**
  * This interface controls when to show or hide the popup window, and, in the first case,
  * what text should be passed to the popup {@link AutocompletePresenter}.
@@ -19,7 +21,7 @@ public interface AutocompletePolicy {
      * @param cursorPos the position of the cursor
      * @return true if popup should be shown
      */
-    boolean shouldShowPopup(Spannable text, int cursorPos);
+    boolean shouldShowPopup(@NonNull Spannable text, int cursorPos);
 
     /**
      * Called to understand whether a currently shown popup should be closed, maybe
@@ -32,7 +34,7 @@ public interface AutocompletePolicy {
      * @param cursorPos the position of the cursor
      * @return true if popup should be hidden
      */
-    boolean shouldDismissPopup(Spannable text, int cursorPos);
+    boolean shouldDismissPopup(@NonNull Spannable text, int cursorPos);
 
     /**
      * Called to understand which query should be passed to {@link AutocompletePresenter}
@@ -49,7 +51,8 @@ public interface AutocompletePolicy {
      * @param text current text, along with its Spans
      * @return the query for presenter
      */
-    CharSequence getQuery(Spannable text);
+    @NonNull
+    CharSequence getQuery(@NonNull Spannable text);
 
     /**
      * Called when popup is dismissed. This can be used, for instance, to clear custom Spans
@@ -57,5 +60,5 @@ public interface AutocompletePolicy {
      *
      * @param text text at the moment of dismissing
      */
-    void onDismiss(Spannable text);
+    void onDismiss(@NonNull Spannable text);
 }

@@ -1,18 +1,18 @@
 package com.otaliastudios.sample;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.otaliastudios.autocomplete.AutocompletePresenter;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.otaliastudios.autocomplete.RecyclerViewPresenter;
 
 import java.util.ArrayList;
@@ -21,12 +21,15 @@ import java.util.List;
 
 public class UserPresenter extends RecyclerViewPresenter<User> {
 
+    @SuppressWarnings("WeakerAccess")
     protected Adapter adapter;
 
-    public UserPresenter(Context context) {
+    @SuppressWarnings("WeakerAccess")
+    public UserPresenter(@NonNull Context context) {
         super(context);
     }
 
+    @NonNull
     @Override
     protected PopupDimensions getPopupDimensions() {
         PopupDimensions dims = new PopupDimensions();
@@ -35,6 +38,7 @@ public class UserPresenter extends RecyclerViewPresenter<User> {
         return dims;
     }
 
+    @NonNull
     @Override
     protected RecyclerView.Adapter instantiateAdapter() {
         adapter = new Adapter();
@@ -61,23 +65,25 @@ public class UserPresenter extends RecyclerViewPresenter<User> {
         adapter.notifyDataSetChanged();
     }
 
-    class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
+    protected class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
 
         private List<User> data;
 
-        public class Holder extends RecyclerView.ViewHolder {
+        @SuppressWarnings("WeakerAccess")
+        protected class Holder extends RecyclerView.ViewHolder {
             private View root;
             private TextView fullname;
             private TextView username;
-            public Holder(View itemView) {
+            Holder(View itemView) {
                 super(itemView);
                 root = itemView;
-                fullname = ((TextView) itemView.findViewById(R.id.fullname));
-                username = ((TextView) itemView.findViewById(R.id.username));
+                fullname = itemView.findViewById(R.id.fullname);
+                username = itemView.findViewById(R.id.username);
             }
         }
 
-        public void setData(List<User> data) {
+        @SuppressWarnings("WeakerAccess")
+        protected void setData(@Nullable List<User> data) {
             this.data = data;
         }
 
@@ -86,8 +92,9 @@ public class UserPresenter extends RecyclerViewPresenter<User> {
             return (isEmpty()) ? 1 : data.size();
         }
 
+        @NonNull
         @Override
-        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new Holder(LayoutInflater.from(getContext()).inflate(R.layout.user, parent, false));
         }
 
@@ -95,8 +102,9 @@ public class UserPresenter extends RecyclerViewPresenter<User> {
             return data == null || data.isEmpty();
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
-        public void onBindViewHolder(Holder holder, int position) {
+        public void onBindViewHolder(@NonNull Holder holder, int position) {
             if (isEmpty()) {
                 holder.fullname.setText("No user here!");
                 holder.username.setText("Sorry!");

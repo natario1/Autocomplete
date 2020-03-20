@@ -1,11 +1,11 @@
 package com.otaliastudios.autocomplete;
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -23,7 +23,7 @@ public class CharPolicy implements AutocompletePolicy {
     private final static String TAG = CharPolicy.class.getSimpleName();
     private final static boolean DEBUG = false;
 
-    private static void log(String log) {
+    private static void log(@NonNull String log) {
         if (DEBUG) Log.e(TAG, log);
     }
 
@@ -47,6 +47,7 @@ public class CharPolicy implements AutocompletePolicy {
      * @param trigger the triggering character.
      * @param needSpaceBefore whether we need a space before trigger
      */
+    @SuppressWarnings("unused")
     public CharPolicy(char trigger, boolean needSpaceBefore) {
         CH = trigger;
         this.needSpaceBefore = needSpaceBefore;
@@ -59,11 +60,13 @@ public class CharPolicy implements AutocompletePolicy {
      * @param ch the character
      * @return whether it's valid part of a query
      */
+    @SuppressWarnings("WeakerAccess")
     protected boolean isValidChar(char ch) {
         return !Character.isWhitespace(ch);
     }
 
-    private int[] checkText(Spannable text, int cursorPos) {
+    @Nullable
+    private int[] checkText(@NonNull Spannable text, int cursorPos) {
         final int spanEnd = cursorPos;
         char last = 'x';
         cursorPos -= 1; // If the cursor is at the end, we will have cursorPos = length. Go back by 1.
@@ -110,7 +113,7 @@ public class CharPolicy implements AutocompletePolicy {
     }
 
     @Override
-    public boolean shouldShowPopup(Spannable text, int cursorPos) {
+    public boolean shouldShowPopup(@NonNull Spannable text, int cursorPos) {
         // Returning true if, right before cursorPos, we have a word starting with @.
         log("shouldShowPopup: text is "+text);
         log("shouldShowPopup: cursorPos is "+cursorPos);
@@ -124,7 +127,7 @@ public class CharPolicy implements AutocompletePolicy {
     }
 
     @Override
-    public boolean shouldDismissPopup(Spannable text, int cursorPos) {
+    public boolean shouldDismissPopup(@NonNull Spannable text, int cursorPos) {
         log("shouldDismissPopup: text is "+text);
         log("shouldDismissPopup: cursorPos is "+cursorPos);
         boolean dismiss = checkText(text, cursorPos) == null;
@@ -132,8 +135,9 @@ public class CharPolicy implements AutocompletePolicy {
         return dismiss;
     }
 
+    @NonNull
     @Override
-    public CharSequence getQuery(Spannable text) {
+    public CharSequence getQuery(@NonNull Spannable text) {
         QuerySpan[] span = text.getSpans(0, text.length(), QuerySpan.class);
         if (span == null || span.length == 0) {
             // Should never happen.
@@ -151,7 +155,7 @@ public class CharPolicy implements AutocompletePolicy {
 
 
     @Override
-    public void onDismiss(Spannable text) {
+    public void onDismiss(@NonNull Spannable text) {
         // Remove any span added by shouldShow. Should be useless, but anyway.
         QuerySpan[] span = text.getSpans(0, text.length(), QuerySpan.class);
         for (QuerySpan s : span) {
@@ -167,7 +171,7 @@ public class CharPolicy implements AutocompletePolicy {
      * @return an int[] with query start and query end positions
      */
     @Nullable
-    public static int[] getQueryRange(Spannable text) {
+    public static int[] getQueryRange(@NonNull Spannable text) {
         QuerySpan[] span = text.getSpans(0, text.length(), QuerySpan.class);
         if (span == null || span.length == 0) return null;
         if (span.length > 1) {

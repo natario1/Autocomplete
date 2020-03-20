@@ -1,4 +1,6 @@
-<!-- markdown-preview README.md -->
+[![Build Status](https://github.com/natario1/Autocomplete/workflows/Build/badge.svg?event=push)](https://github.com/natario1/Autocomplete/actions)
+[![Release](https://img.shields.io/github/release/natario1/Autocomplete.svg)](https://github.com/natario1/Autocomplete/releases)
+[![Issues](https://img.shields.io/github/issues-raw/natario1/Autocomplete.svg)](https://github.com/natario1/Autocomplete/issues)
 
 *Need support, consulting, or have any other business-related question? Feel free to <a href="mailto:mat.iavarone@gmail.com">get in touch</a>.*
 
@@ -9,17 +11,11 @@
 Simple yet powerful autocomplete behavior for `EditText`s, to avoid working with
 `MultiAutoCompleteTextView` APIs.
 
-```groovy
-implementation 'com.otaliastudios:autocomplete:1.1.0'
+```kotlin
+implementation("com.otaliastudios:autocomplete:1.1.0")
 ```
 
 To see it in action, take a look at the sample app in the `sample` module.
-
-<img src="art/auto1.gif" width="30%"><img src="art/auto2.gif" width="30%"><img src="art/auto3.gif" width="30%">
-
-<!-- doctoc README.md --github --notitle -->
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Usage](#usage)
   - [AutocompletePolicy](#autocompletepolicy)
@@ -28,7 +24,13 @@ To see it in action, take a look at the sample app in the `sample` module.
   - [AutocompleteCallback](#autocompletecallback)
 - [Contributing](#contributing)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+&#10240;  <!-- Hack to add whitespace -->
+
+<p align="center">
+  <img src="docs/static/auto1.gif" width="250" hspace="5"><img src="docs/static/auto2.gif" width="250" hspace="5"><img src="docs/static/auto3.gif" width="250" hspace="5">
+</p>
+
+&#10240;  <!-- Hack to add whitespace -->
 
 ## Usage
 
